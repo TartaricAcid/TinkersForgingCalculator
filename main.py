@@ -76,7 +76,7 @@ if __name__ == '__main__':
     # 输入锻造总数值
     VALUE = input(ANSI_BLUE + "总锻造长度，数值介于 0-150 之间（不含）\n" + ANSI_RESET
                   + ANSI_BLUE + "请输入你的数值：" + ANSI_RESET)
-    while not re.findall("^(1[0-5]\d|[1-9]\d|[1-9])$", VALUE):
+    while not re.findall("^(1[0-4]\d|[1-9]\d|[1-9])$", VALUE):
         VALUE = input(ANSI_BLUE + "输入只能为数字且介于0至150之间，请重新输入：" + ANSI_RESET)
 
     # 将结果存入 List
