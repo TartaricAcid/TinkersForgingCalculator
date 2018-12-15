@@ -3,7 +3,7 @@ import re
 
 # 各个锻造增加的数值
 HIT_LIGHT = -3  # 轻击
-HIT_MEDIUM = -6  # 中击
+HIT_MEDIUM = -6  # 击打
 HIT_HARD = -9  # 重击
 DRAW = -15  # 牵拉
 PUNCH = 2  # 冲压
@@ -16,7 +16,7 @@ INDEX = {"a": HIT_LIGHT, "b": HIT_MEDIUM, "c": HIT_HARD, "d": DRAW,
          "e": PUNCH, "f": BEND, "g": UPSET, "h": SHRINK}
 
 # 翻译
-TRANS = {HIT_LIGHT: "轻击", HIT_MEDIUM: "中击", HIT_HARD: "重击", DRAW: "牵拉",
+TRANS = {HIT_LIGHT: "轻击", HIT_MEDIUM: "击打", HIT_HARD: "重击", DRAW: "牵拉",
          PUNCH: "冲压", BEND: "弯曲", UPSET: "镦锻", SHRINK: "收缩"}
 
 # 基本参数
@@ -46,31 +46,31 @@ def get_sum(list_in, get_sum_num=0):
 if __name__ == '__main__':
     # CMD 界面书写
     print(ANSI_GREEN + "╭━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╮" + ANSI_RESET)
-    print(ANSI_YELLOW + "             MIT License             ")
-    print("\u0020\u0020 Copyright (c) 2018 TartaricAcid       ")
-    print("\u0020\u0020 Tinker's Forging 模组锻造计算器" + ANSI_RESET)
-    print(ANSI_GREEN + "╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯\n" + ANSI_RESET)
+    print(ANSI_YELLOW + "             MIT License              ")
+    print("   Copyright (c) 2018 TartaricAcid    ")
+    print("   Tinker's Forging 模组锻造计算器     " + ANSI_RESET)
+    print(ANSI_GREEN + "╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯" + "\n" + ANSI_RESET)
 
     # 开始进行输入
     last_one = input(ANSI_BLUE + "请输入最后一次锻造操作（不区分大小写）\n" + ANSI_CYAN
-                     + "轻击：a\t\t" + "中击：b\t\t" + "重击：c\t\t" + "牵拉：d\t\t\n"
+                     + "轻击：a\t\t" + "击打：b\t\t" + "重击：c\t\t" + "牵拉：d\t\t\n"
                      + "冲压：e\t\t" + "弯曲：f\t\t" + "镦锻：g\t\t" + "收缩：h\t\t\n"
                      + ANSI_BLUE + "请输入你的操作：" + ANSI_RESET)
     while not re.findall("^[a-h]$", last_one):
         last_one = input(ANSI_BLUE + "你输入的操作不对，请重新输入：" + ANSI_RESET)
 
     last_two = input(ANSI_BLUE + "请输入倒数第二次锻造操作（不区分大小写）\n" + ANSI_CYAN
-                     + "轻击：a\t\t" + "中击：b\t\t" + "重击：c\t\t" + "牵拉：d\t\t\n"
+                     + "轻击：a\t\t" + "击打：b\t\t" + "重击：c\t\t" + "牵拉：d\t\t\n"
                      + "冲压：e\t\t" + "弯曲：f\t\t" + "镦锻：g\t\t" + "收缩：h\t\t\n"
                      + ANSI_BLUE + "请输入你的操作：" + ANSI_RESET)
     while not re.findall("^[a-h]$", last_two):
         last_two = input(ANSI_BLUE + "你输入的操作不对，请重新输入：" + ANSI_RESET)
 
-    last_three = input(ANSI_BLUE + "请输入倒数第三次锻造操作（不区分大小写）\n" + ANSI_CYAN
-                       + "轻击：a\t\t" + "中击：b\t\t" + "重击：c\t\t" + "牵拉：d\t\t\n"
+    last_three = input(ANSI_BLUE + "请输入倒数第三次锻造操作（不区分大小写，如果为空请直接摁回车）\n" + ANSI_CYAN
+                       + "轻击：a\t\t" + "击打：b\t\t" + "重击：c\t\t" + "牵拉：d\t\t\n"
                        + "冲压：e\t\t" + "弯曲：f\t\t" + "镦锻：g\t\t" + "收缩：h\t\t\n"
                        + ANSI_BLUE + "请输入你的操作：" + ANSI_RESET)
-    while not re.findall("^[a-h]$", last_three):
+    while not (last_three == "" or re.findall("^[a-h]$", last_three)):
         last_three = input(ANSI_BLUE + "你输入的操作不对，请重新输入：" + ANSI_RESET)
 
     # 输入锻造总数值
@@ -80,7 +80,9 @@ if __name__ == '__main__':
         VALUE = input(ANSI_BLUE + "输入只能为数字且介于0至150之间，请重新输入：" + ANSI_RESET)
 
     # 将结果存入 List
-    LAST_THREE_LIST.append(INDEX.get(last_three.lower()))
+    if last_three != "":
+        # 第三步可能为空，所以如果真为空，就不计入
+        LAST_THREE_LIST.append(INDEX.get(last_three.lower()))
     LAST_THREE_LIST.append(INDEX.get(last_two.lower()))
     LAST_THREE_LIST.append(INDEX.get(last_one.lower()))
 
