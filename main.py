@@ -45,11 +45,11 @@ def get_sum(list_in, get_sum_num=0):
 
 if __name__ == '__main__':
     # CMD 界面书写
-    print(ANSI_GREEN + "╭━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╮" + ANSI_RESET)
+    print(ANSI_GREEN + "╭====================================╮" + ANSI_RESET)
     print(ANSI_YELLOW + "             MIT License              ")
-    print("   Copyright (c) 2018 TartaricAcid    ")
-    print("   Tinker's Forging 模组锻造计算器     " + ANSI_RESET)
-    print(ANSI_GREEN + "╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯" + "\n" + ANSI_RESET)
+    print("    Copyright (c) 2018 TartaricAcid    ")
+    print("    Tinker's Forging 模组锻造计算器     " + ANSI_RESET)
+    print(ANSI_GREEN + "╰====================================╯" + ANSI_RESET)
 
     # 开始进行输入
     last_one = input(ANSI_BLUE + "请输入最后一次锻造操作（不区分大小写）\n" + ANSI_CYAN
@@ -74,10 +74,10 @@ if __name__ == '__main__':
         last_three = input(ANSI_BLUE + "你输入的操作不对，请重新输入：" + ANSI_RESET)
 
     # 输入锻造总数值
-    VALUE = input(ANSI_BLUE + "总锻造长度，数值介于 0-150 之间（不含）\n" + ANSI_RESET
+    VALUE = input(ANSI_BLUE + "\n红色-绿色箭头差值，数值介于 -150 ~ 150 之间（不含）\n" + ANSI_RESET
                   + ANSI_BLUE + "请输入你的数值：" + ANSI_RESET)
-    while not re.findall("^(1[0-4]\d|[1-9]\d|[1-9])$", VALUE):
-        VALUE = input(ANSI_BLUE + "输入只能为数字且介于0至150之间，请重新输入：" + ANSI_RESET)
+    while not re.findall("^(-?(1[0-4]\d|[1-9]\d|[1-9])|0)$", VALUE):
+        VALUE = input(ANSI_BLUE + "输入只能为数字且介于 -150 ~ 150 之间，请重新输入：" + ANSI_RESET)
 
     # 将结果存入 List
     if last_three != "":
@@ -99,8 +99,8 @@ if __name__ == '__main__':
     for i in range(COUNT):
         # 继承上一个锻造结果，进行下一次锻造尝试
         for j in total:
-            # 如果和在 0-150 之间才可以进行存储，否则抛弃
-            if 0 < get_sum(j, SHRINK) < 150:
+            # 如果和在 -150-150 之间才可以进行存储，否则抛弃
+            if -150 < get_sum(j, SHRINK) < 150:
 
                 # 因为 Python 的原因，需要进行一次 copy
                 tmp_j = j.copy()  # 复制
@@ -113,7 +113,7 @@ if __name__ == '__main__':
                 else:
                     tmp.append(tmp_j)
 
-            if 0 < get_sum(j, UPSET) < 150:
+            if -150 < get_sum(j, UPSET) < 150:
                 tmp_j = j.copy()
                 tmp_j.append(UPSET)
                 if get_sum(j, UPSET) == VALUE:
@@ -121,7 +121,7 @@ if __name__ == '__main__':
                 else:
                     tmp.append(tmp_j)
 
-            if 0 < get_sum(j, BEND) < 150:
+            if -150 < get_sum(j, BEND) < 150:
                 tmp_j = j.copy()
                 tmp_j.append(BEND)
                 if get_sum(j, BEND) == VALUE:
@@ -129,7 +129,7 @@ if __name__ == '__main__':
                 else:
                     tmp.append(tmp_j)
 
-            if 0 < get_sum(j, PUNCH) < 150:
+            if -150 < get_sum(j, PUNCH) < 150:
                 tmp_j = j.copy()
                 tmp_j.append(PUNCH)
                 if get_sum(j, PUNCH) == VALUE:
@@ -137,7 +137,7 @@ if __name__ == '__main__':
                 else:
                     tmp.append(tmp_j)
 
-            if 0 < get_sum(j, DRAW) < 150:
+            if -150 < get_sum(j, DRAW) < 150:
                 tmp_j = j.copy()
                 tmp_j.append(DRAW)
                 if get_sum(j, DRAW) == VALUE:
@@ -145,7 +145,7 @@ if __name__ == '__main__':
                 else:
                     tmp.append(tmp_j)
 
-            if 0 < get_sum(j, HIT_HARD) < 150:
+            if -150 < get_sum(j, HIT_HARD) < 150:
                 tmp_j = j.copy()
                 tmp_j.append(HIT_HARD)
                 if get_sum(j, HIT_HARD) == VALUE:
@@ -153,7 +153,7 @@ if __name__ == '__main__':
                 else:
                     tmp.append(tmp_j)
 
-            if 0 < get_sum(j, HIT_MEDIUM) < 150:
+            if -150 < get_sum(j, HIT_MEDIUM) < 150:
                 tmp_j = j.copy()
                 tmp_j.append(HIT_MEDIUM)
                 if get_sum(j, HIT_MEDIUM) == VALUE:
@@ -161,7 +161,7 @@ if __name__ == '__main__':
                 else:
                     tmp.append(tmp_j)
 
-            if 0 < get_sum(j, HIT_LIGHT) < 150:
+            if -150 < get_sum(j, HIT_LIGHT) < 150:
                 tmp_j = j.copy()
                 tmp_j.append(HIT_LIGHT)
                 if get_sum(j, HIT_LIGHT) == VALUE:
@@ -179,6 +179,7 @@ if __name__ == '__main__':
             break
 
     # 打印输出
+    print("\n───────────────────────────────────────")
     num = 1  # 计数用工具
     for k in result:
         # 遍历输出结果
@@ -198,3 +199,4 @@ if __name__ == '__main__':
 
             # 自加
             num = num + 1
+    print("───────────────────────────────────────")
